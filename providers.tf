@@ -1,19 +1,19 @@
-terraform {
-  required_providers {
-    github = {
-      source  = "integrations/github"
-      version = "~> 5.0"
-    }
-    tfe = {
-      version = "~> 0.73.0"
-    }
-  }
-}
+
 
 provider "github" {
-
+  owner = var.github_owner
 }
 
 provider "tfe" {
   organization = var.tfe_org_name
+}
+
+provider "google" {
+  project = var.gcp_project_id
+  region  = "global"
+}
+
+provider "google-beta" {
+  project = var.gcp_project_id
+  region  = "global"
 }
