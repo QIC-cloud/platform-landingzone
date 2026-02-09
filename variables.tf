@@ -19,7 +19,7 @@ variable "bu" {
   description = "Set the business unit name of the Workload (Workload Owner)"
 }
 variable "team_members" {
-  type        = list()
+  type        = list(string)
   description = "A comma-separated list of Team usernames. e.g. user1,user2"
 }
 
