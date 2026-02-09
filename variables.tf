@@ -12,7 +12,7 @@ variable "workload_name" {
 }
 variable "env" {
   type        = string
-  description = "Set your Workload/Application Name"
+  description = "Set your Workload/Application Environment Name e.g. dev, staging, prod"
 }
 variable "bu" {
   type        = string
@@ -20,7 +20,7 @@ variable "bu" {
 }
 variable "team_members" {
   type        = list()
-  description = "A comma-separated list of Team usernames. For example: user1,user2"
+  description = "A comma-separated list of Team usernames. e.g. user1,user2"
 }
 
 variable "tfc_gcp_audience" {
