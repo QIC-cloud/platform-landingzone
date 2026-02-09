@@ -1,9 +1,3 @@
-
-
-provider "github" {
-  owner = var.github_owner
-}
-
 provider "tfe" {
   organization = var.tfe_org_name
 }

@@ -3,25 +3,25 @@
 # }
 
 variable "tfe_org_name" {
-  type = string
+  type        = string
+  description = "Set your HCP Terraform Org. Name"
 }
 variable "workload_name" {
-  type = string
+  type        = string
+  description = "Set your Workload/Application Name"
 }
 variable "env" {
-  type = string
+  type        = string
+  description = "Set your Workload/Application Name"
 }
 variable "bu" {
-  type = string
+  type        = string
+  description = "Set the business unit name of the Workload (Workload Owner)"
 }
-variable "github_owner" {
-  type = string
+variable "team_members" {
+  type        = list()
+  description = "A comma-separated list of Team usernames. For example: user1,user2"
 }
-variable "github_username" {
-  type = string
-}
-# Copyright IBM Corp. 2022, 2025
-# SPDX-License-Identifier: MPL-2.0
 
 variable "tfc_gcp_audience" {
   type        = string
