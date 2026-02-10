@@ -3,16 +3,13 @@
 
 
 
-# Data source used to get the project number programmatically.
-#
-# https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/project
-data "google_project" "project" {
-}
+
 
 # Enables the required services in the project.
 #
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_service
 resource "google_project_service" "services" {
+  project = module.gcp-project-factory.project_id
   count   = length(var.gcp_service_list)
   service = var.gcp_service_list[count.index]
 }
@@ -23,6 +20,7 @@ resource "google_project_service" "services" {
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool
 resource "google_iam_workload_identity_pool" "tfc_pool" {
   provider                  = google-beta
+  project                   = module.gcp-project-factory.project_id
   workload_identity_pool_id = "${var.bu}-${var.workload_name}-${var.env}-tfc-pool"
 }
 
@@ -33,6 +31,7 @@ resource "google_iam_workload_identity_pool" "tfc_pool" {
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/iam_workload_identity_pool_provider
 resource "google_iam_workload_identity_pool_provider" "tfc_provider" {
   provider                           = google-beta
+  project                            = module.gcp-project-factory.project_id
   workload_identity_pool_id          = google_iam_workload_identity_pool.tfc_pool.workload_identity_pool_id
   workload_identity_pool_provider_id = "${var.bu}-${var.workload_name}-${var.env}-provider-id"
   attribute_mapping = {
@@ -64,6 +63,7 @@ resource "google_iam_workload_identity_pool_provider" "tfc_provider" {
 #
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_service_account
 resource "google_service_account" "tfc_service_account" {
+  project      = module.gcp-project-factory.project_id
   account_id   = "${var.bu}-${var.workload_name}-${var.env}-tfc-sa"
   display_name = "Terraform Cloud Service Account"
 }
@@ -82,7 +82,7 @@ resource "google_service_account_iam_member" "tfc_service_account_member" {
 #
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam
 resource "google_project_iam_member" "tfc_project_member" {
-  project = var.gcp_project_id
+  project = module.gcp-project-factory.project_id
   role    = "roles/editor"
   member  = "serviceAccount:${google_service_account.tfc_service_account.email}"
 }

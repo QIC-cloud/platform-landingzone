@@ -13,4 +13,12 @@ terraform {
       version = "> 3.73.0"
     }
   }
+  cloud { 
+    
+    organization = "Qiddiya" 
+
+    workspaces { 
+      name = "platform-landingzone-test" 
+    } 
+}
 }

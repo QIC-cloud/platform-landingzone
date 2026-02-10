@@ -35,12 +35,6 @@ variable "tfc_hostname" {
   description = "The hostname of the TFC or TFE instance you'd like to use with GCP"
 }
 
-
-variable "gcp_project_id" {
-  type        = string
-  description = "The ID for your GCP project"
-}
-
 variable "gcp_service_list" {
   description = "APIs required for the project"
   type        = list(string)
@@ -50,4 +44,10 @@ variable "gcp_service_list" {
     "sts.googleapis.com",
     "iamcredentials.googleapis.com"
   ]
+}
+
+
+variable "folder_id" {
+  type        = string
+  description = "The ID for your GCP folder"
 }
