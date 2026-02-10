@@ -13,6 +13,12 @@ resource "google_project_service" "services" {
   count   = length(var.gcp_service_list)
   service = var.gcp_service_list[count.index]
 }
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [module.gcp-project-factory]
+
+  create_duration = "30s"
+}
+
 
 # Creates a workload identity pool to house a workload identity
 # pool provider.
@@ -22,6 +28,7 @@ resource "google_iam_workload_identity_pool" "tfc_pool" {
   provider                  = google-beta
   project                   = module.gcp-project-factory.project_id
   workload_identity_pool_id = "${var.bu}-${var.workload_name}-${var.env}-tfc-pool"
+  depends_on = [time_sleep.wait_30_seconds]
 }
 
 # Creates an identity pool provider which uses an attribute condition
